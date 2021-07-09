@@ -1,0 +1,23 @@
+import time
+import serial
+
+ser = serial.Serial(  # 下面这些参数根据情况修改
+    port='COM4',
+    baudrate=9600,
+)
+
+ser.flushInput()  # 清空缓冲区
+
+
+def main():
+    while True:
+        count = ser.inWaiting()  # 获取串口缓冲区数据
+        if count != 0:
+            recv = ser.read(ser.in_waiting)
+            print(time.time(), "---recv--->", recv)
+            print(recv[0])
+            time.sleep(0.1)  # 延时0.1s
+
+
+if __name__ == '__main__':
+    main()
